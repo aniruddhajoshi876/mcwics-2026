@@ -1,15 +1,19 @@
 {
-    "testid": [
-        {"caption": "wow look at this!", "img":"image.jpg"},
-        {"caption": "check out my awesome meal!", "img":"image.jpg"}, 
-        {"caption": "wow we are cooked", "img":"image.jpg"}
-    
-    ],
+    "rooms" : {
+        "roomId": {
+        "containers" : [
+            {
+                "container_id" : 0,
+                "image" : "",
+                "caption" : "",
+                "x" : 0,
+                "y": 0,
+                "width" : 0,
+                "height" : 0,
+                "z": 0
 
-
-    "12345": [],
-
-    "haharoom": []
-
-
+            }
+        ]
+        }
+    } 
 }
