@@ -24,7 +24,7 @@ def create_room():
 def enter_room():
     room_id = request.form.get("room-id").strip()
     print(room_id)
-    return render_template("index.html")
+    return render_template("personalised.html", room_id=room_id)
 
 if __name__ == "__main__":
     app.run(debug=True)
