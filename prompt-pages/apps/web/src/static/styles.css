@@ -1,3 +1,53 @@
 body {
-    background-color: lightcoral;
+    height: 800px;
+    background-color:rgb(225, 199, 137);
+    border: rgb(81, 39, 3) solid 20px;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.add-room-button {
+    background-color: #2c84e2;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-room-header {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+
+}
+
+.room-input {
+    height: 20px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.create-room-container {
+    border: solid black 2px;
+    border-radius: 5;
+    margin: 10px 10px;
+    padding: 30px 30px;
+    display: grid;
 }

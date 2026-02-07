@@ -7,10 +7,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div>
+    <div class="main-header">
         <h1>Project Name</h1>
     </div>
-    <head3>Create Custom Page</head3>
-    <button>+</button>
+        <div class="main-container">
+            <div class="create-room-container">
+            <h3 class="add-room-header">Create New Room</h3>
+            <form action="/create_room" method="post">
+                <input type="text" placeholder="Room Name" class="room-input">
+                <button class="add-room-button" type="submit">+</button>
+            </form>
+
+        </div>
+        <div></div> <!-- Empty div do not delete -->
+        <div class="create-room-container">
+            <h3 class="add-room-header">Enter Room</h3>
+            <input type="text" placeholder="Room ID" class="room-input">
+        </div>
+    </div>
+
+
+
 </body>
 </html>
