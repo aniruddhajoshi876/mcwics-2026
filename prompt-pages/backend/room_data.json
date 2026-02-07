@@ -1,6 +1,44 @@
 {
     "rooms" : {
-        "roomId": {
+        "room1": {
+        "containers" : [
+            {
+                "container_id" : 1,
+                "image" : "",
+                "caption" : "Check this out!",
+                "x" : 100,
+                "y": 0,
+                "width" : 0,
+                "height" : 0,
+                "z": 0
+
+            }, 
+            {
+                "container_id" : 2,
+                "image" : "",
+                "caption" : "Haha cool food",
+                "x" : 0,
+                "y": 0,
+                "width" : 0,
+                "height" : 0,
+                "z": 0
+
+            },
+            {
+                "container_id" : 3,
+                "image" : "",
+                "caption" : "This is a caption lol",
+                "x" : 0,
+                "y": 0,
+                "width" : 0,
+                "height" : 0,
+                "z": 0
+
+            }
+        ]
+        },
+
+        "room2": {
         "containers" : [
             {
                 "container_id" : 0,
