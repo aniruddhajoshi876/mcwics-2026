@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for
 from routes.rooms import bp as rooms_bp
 
-app = Flask(__name__, template_folder="../apps/web/src/pages/templates")
+app = Flask(__name__, template_folder="../apps/web/src/pages/templates", static_folder="../apps/web/src/static")
 
 
 app.register_blueprint(rooms_bp)
