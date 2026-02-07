@@ -27,8 +27,8 @@ def create_room():
 def enter_room():
     #get room id from form request
     room_id = request.form.get("room-id").strip()
-    #room_data =find_room(room_id)
-    #print(room_data)
+    room_data =find_room(room_id)
+    print(room_data)
     return render_template("personalised.html", room_id=room_id)
 
 

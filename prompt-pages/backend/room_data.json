@@ -1,5 +1,4 @@
 {
-    "rooms" : {
         "room1": {
         "containers" : [
             {
@@ -43,7 +42,7 @@
             {
                 "container_id" : 0,
                 "image" : "",
-                "caption" : "",
+                "caption" : "This is a new room",
                 "x" : 0,
                 "y": 0,
                 "width" : 0,
@@ -53,5 +52,4 @@
             }
         ]
         }
-    } 
-}
+} 
