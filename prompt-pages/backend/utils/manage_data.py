@@ -14,6 +14,10 @@ def find_room(room_id):
         room_data = data[room_id]
         return room_data
     
+def manage_containers(containers: list):
+    for container in containers:
+        print(f"Caption: {container['caption']}")
+    
 
 if __name__ == "__main__":
     print(find_room("testid"))
