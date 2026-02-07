@@ -1,6 +1,6 @@
 
 * {
-  /*border: 2px solid red;*/
+  border: 2px solid red;
 }
 
 html, body {
@@ -15,15 +15,24 @@ html, body {
     position: absolute;
     left: 50px;
     top: 50px;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     cursor: move;
+
+    display: flex;
+    align-items: flex-end;
 }
 
 .header {
     background: lightcoral;
+    padding: 20px;
+    
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 20px;
+}
+
+.caption {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
 }
