@@ -10,20 +10,30 @@
     <div class="main-header">
         <h1>Project Name</h1>
     </div>
-        <div class="main-container">
-            <div class="create-room-container">
-            <h3 class="add-room-header">Create New Room</h3>
-            <form action="/create_room" method="post">
-                <input type="text" placeholder="Room Name" class="room-input">
-                <button class="add-room-button" type="submit">+</button>
+
+    <div class="main-container">
+
+        <div class="choice-room-container">
+                <h3 class="add-room-header">Create New Room</h3>
+                <div class="get-room-data">
+                    <form action="/create_room" method="POST" class="room-form">
+                        <input type="text" placeholder="Room Name" class="room-input" name="room-id">
+                        <button class="add-room-button" type="submit">+</button>
+                    </form>
+                </div> 
+        </div>
+
+        <div></div> <!-- Empty div do not delete -->
+
+        <div class="choice-room-container">
+            <h3 class="add-room-header">Enter Room</h3>
+            <form action="/enter_room" method="POST" class="room-form">
+                <input type="text" placeholder="Room ID" class="room-input" name="room-id">
+                <button class="enter-room-button" type="submit">Enter</button>
             </form>
 
         </div>
-        <div></div> <!-- Empty div do not delete -->
-        <div class="create-room-container">
-            <h3 class="add-room-header">Enter Room</h3>
-            <input type="text" placeholder="Room ID" class="room-input">
-        </div>
+
     </div>
 
 
