@@ -1,8 +1,6 @@
 from flask_socketio import emit
 from realtime.sockets import socketio
 
-room_container_counts = {}
-
 #client to server communication
 #server receives command and emits back to client
 
@@ -10,17 +8,14 @@ room_container_counts = {}
 def on_container_add(data):
     room_id = data.get('roomId')
     content = data.get('content')
+    container_id = data.get('container_id')
 
     if not room_id or content is None:
         return
-    
-    #assign next index
-    index = room_container_counts.get(room_id,0)
-    room_container_counts[room_id] = index + 1
 
     emit(
         "container_added", 
-        {'index': index,
+        {'container_id': container_id,
          'content': content
          },
          room=room_id
@@ -30,31 +25,31 @@ def on_container_add(data):
 @socketio.on('container_update')
 def on_container_update(data):
     room_id = data.get('roomId')
-    index = data.get('index')
+    container_id = data.get('container_id')
     content = data.get('content')
 
-    if not room_id or content is None or index is None:
+    if not room_id or content is None or container_id is None:
         return
     
 
     emit(
         "container_updated", 
-        {'index': index,
+        {'container_id': container_id,
          'content': content
          },
          room=room_id
     )
 
 @socketio.on('container_delete')
-def on_container_add(data):
+def on_container_delete(data):
     room_id = data.get('roomId')
-    index = data.get('index')
+    container_id = data.get('container_id')
 
-    if not room_id or index is None:
+    if not room_id or container_id is None:
         return
     emit(
         "container_deleted", 
-        {'index': index,
+        {'container_id': container_id,
          },
          room=room_id
     )
