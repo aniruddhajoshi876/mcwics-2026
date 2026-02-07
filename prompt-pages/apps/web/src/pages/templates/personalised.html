@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized Page</title>
-    <link rel="stylesheet" href="../styles/personalstyles.css">
-    <script src="personalscript.js"></script> 
+    <link rel="stylesheet" href="../../styles/personalstyles.css">
+    <script src="../../scripts/personalscript.js"></script> 
 </head>
-<body>
-    <div class="box" draggable="true">this is a draggable box</div>
+<body ondragover="drag_over(event)" ondrop="drop(event)">
+    <div id="boxID" class="box" draggable="true" ondragstart="drag_start(event)">this is a draggable box</div>
 </body>
 </html>
