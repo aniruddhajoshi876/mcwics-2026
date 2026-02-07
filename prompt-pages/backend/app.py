@@ -1,11 +1,2 @@
-import secrets
-from datetime import datetime, timezone
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
-app.register_blueprint(rooms_bp)
-
-
-@app.route("/")
-def index():
-    return {"ok": True}
+# Single Flask app lives in main.py; this re-exports it for `flask --app app run`.
+from main import app

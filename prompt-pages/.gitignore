@@ -1,0 +1,20 @@
+# bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# virtual env
+venv/
+.venv/
+env/
+
+# env files (secrets)
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
