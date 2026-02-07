@@ -38,3 +38,7 @@ html, body {
     max-height: 60px;
     overflow: scroll; /* scroll for more text space */
 }
+
+button {
+    float: right;
+}
