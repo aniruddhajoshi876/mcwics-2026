@@ -13,14 +13,14 @@ def home():
     return render_template("index.html")
 
 #create a new room with given room id
-@app.route("/create_room", methods=["POST"])
+@app.route("/new_room", methods=["POST"])
 def create_room():
     room_id = request.form.get("room-id").strip()
     print(room_id)
-    return render_template("index.html")
+    return render_template("personalised.html", room_id=room_id)
 
 #enter pre-existing room with given room id
-@app.route("/enter_room", methods=["POST"])
+@app.route("/room", methods=["POST"])
 def enter_room():
     room_id = request.form.get("room-id").strip()
     print(room_id)
