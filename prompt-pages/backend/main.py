@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, flash, redirect
 from routes.rooms import bp as rooms_bp
 from realtime.sockets import socketio
 from utils.manage_data import find_room, manage_containers
+from utils.room_id import generate_room_id
 
 
 #setup flask app, specify template and static folders
@@ -20,9 +21,11 @@ def home():
 #create a new room with given room id
 @app.route("/create_room", methods=["POST"])
 def create_room():
-    room_id = request.form.get("room-id").strip()
+    room_name = request.form.get("room-name").strip()
+    print(room_name)
+    room_id = generate_room_id()
     print(room_id)
-    return render_template("personalised.html", room_id=room_id)
+    return render_template("room.html", room_name=room_name, room_id=room_id)
 
 #enter pre-existing room with given room id
 @app.route("/enter_room", methods=["POST"])
@@ -30,6 +33,7 @@ def enter_room():
     #get room id from form request
     room_id = request.form.get("room-id").strip()
     room_data =find_room(room_id)
+    #check if id is valid
     if not room_data:
         flash("Room not found.", "error")
         return redirect(url_for("home"))
