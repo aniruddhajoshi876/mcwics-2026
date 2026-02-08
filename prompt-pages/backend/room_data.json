@@ -1,23 +1,11 @@
 {
     "roomid": {
-        "name": "2026 We Lock In",
+        "name": "2026 Hackathon",
         "containers": [
-            {
-                "container_id": 1,
-                "image": "",
-                "caption": "Check this out!",
-                "x": 800,
-                "y": 400,
-                "width": 0,
-                "height": 0,
-                "z": 0,
-                "date": "Sat Feb 07 2026",
-                "user": "Ilgaz"
-            },
             {
                 "container_id": 2,
                 "image": "",
-                "caption": "Haha cool food",
+                "caption": "Haha we got cool food",
                 "x": 50,
                 "y": 600,
                 "width": 0,
@@ -29,7 +17,7 @@
             {
                 "container_id": 3,
                 "image": "",
-                "caption": "This is a caption lol",
+                "caption": "It's so cold outside!",
                 "x": 400,
                 "y": 200,
                 "width": 0,
@@ -37,30 +25,6 @@
                 "z": 0,
                 "date": "Sun Feb 08 2026",
                 "user": "Audrey"
-            },
-            {
-                "container_id": 3,
-                "image": "",
-                "caption": "Yo whats good guys?",
-                "x": 900,
-                "y": 210,
-                "width": 0,
-                "height": 0,
-                "z": 0,
-                "date": "Fri Feb 06 2026",
-                "user": "Bob"
-            },
-            {
-                "container_id": 4,
-                "image": "",
-                "caption": "Hey there everybody",
-                "x": 300,
-                "y": 500,
-                "width": 0,
-                "height": 0,
-                "z": 0,
-                "date": "Fri Feb 06 2026",
-                "user": "Julien"
             }
         ]
     },
@@ -255,6 +219,10 @@
     },
     "7c8b9avr": {
         "name": "hello",
+        "containers": []
+    },
+    "r36t14wt": {
+        "name": "another room",
         "containers": []
     }
 }
