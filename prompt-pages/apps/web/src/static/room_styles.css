@@ -28,9 +28,10 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     border-radius: 14px; /* bezel corners */
     border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 
     background: linear-gradient(
         135deg,
@@ -71,14 +72,16 @@ html, body {
 
 .header {
     background: #C2DBF0;
-    padding: 20px;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    width: 300px;
-    height: 100px;
-    font-size: 50px;
+    padding: 20px 40px;
+
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .date, .name {
@@ -93,7 +96,7 @@ button {
 }
 
 .action-button {
-    background: #C2DBF0;
+    background: #f0cbc2;
     border: none;
     padding: 10px 10px;
     margin: 5px;
@@ -106,7 +109,7 @@ button {
 }
 
 .add-post-button {
-    background-color: #7daace;
+    background-color: #db9494;
     color: #ffffff;
     border: none;
     border-radius: 50%;
