@@ -19,7 +19,7 @@ def home():
     return render_template("index.html")
 
 #create a new room with given room id
-@app.route("/create_room", methods=["POST"])
+@app.route("/create_room", methods=["POST", "GET"])
 def create_room():
     #get room name from form request
     room_name = request.form.get("room-name").strip()
@@ -31,7 +31,7 @@ def create_room():
     return render_template("room.html", room_name=room_name, room_id=room_id)
 
 #enter pre-existing room with given room id
-@app.route("/enter_room", methods=["POST"])
+@app.route("/enter_room", methods=["POST", "GET"])
 def enter_room():
     #get room id from form request
     room_id = request.form.get("room-id").strip()
@@ -41,7 +41,7 @@ def enter_room():
         flash("Room not found.", "error")
         return redirect(url_for("home"))
     manage_containers(room_data["containers"])
-    return render_template("personalised.html", room_id=room_id)
+    return render_template("personalised.html", room_id=room_id, data=room_data)
 
 
 
