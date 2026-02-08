@@ -1,5 +1,4 @@
 const addButtonEl = document.querySelector(".add-post-js");
-
 const postSpawnEl = document.querySelector('.post-spawn-js');
 
 console.log("Running!")
