@@ -19,7 +19,8 @@ def on_container_add(data):
         {'container_id': container_id,
          'content': content
          },
-         room=room_id
+         room=room_id,
+         include_self=False
     )
 
 
@@ -38,7 +39,8 @@ def on_container_update(data):
         {'container_id': container_id,
          'content': content
          },
-         room=room_id
+         room=room_id,
+         include_self=False
     )
 
 @socketio.on('container_delete')
@@ -52,7 +54,8 @@ def on_container_delete(data):
         "container_deleted", 
         {'container_id': container_id,
          },
-         room=room_id
+         room=room_id,
+         include_self=False
     )
 
 @socketio.on('save_state')
@@ -66,3 +69,23 @@ def save_state(data):
         save_room(room_id, state)
     except Exception as e:
         print('Error while saving...')
+
+@socketio.on('move_container')
+def on_move_container(data):
+    room_id = data.get('roomId')
+    container_id = data.get('container_id')
+    x = data.get('x')
+    y = data.get('y')
+
+    if not room_id or container_id is None or x is None or y is None:
+        return
+
+    emit(
+        'container_moved', {
+            'container_id' : container_id,
+            'x' :x,
+            'y': y,
+        },
+        room=room_id,
+        include_self=False
+    )
