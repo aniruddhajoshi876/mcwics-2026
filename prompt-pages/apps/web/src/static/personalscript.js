@@ -40,6 +40,14 @@ $("input[type='file']").change(function(e) { // jquery
     }
 });
 
+const date = new Date();
+document.getElementById("date").textContent = date.toDateString();
+
+
+
+
+
+
 /***********************
  * SOCKET SETUP
  ***********************/
