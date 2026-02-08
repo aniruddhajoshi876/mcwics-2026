@@ -1,5 +1,4 @@
 const addButtonEl = document.querySelector(".add-post-js");
-
 const postSpawnEl = document.querySelector('.post-spawn-js');
 
 console.log("Running!")
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function makePost(postData) {
      const date = new Date();
 
-    const postHTML = `    <div id="box1" class="box" draggable="true">
+    const postHTML = `    <div id="box1" class="box" draggable="true" id="${postId}">
         <span class="name" contenteditable="true">user</span>
         <span class="date" id="date">${date.toDateString()}</span>
 
