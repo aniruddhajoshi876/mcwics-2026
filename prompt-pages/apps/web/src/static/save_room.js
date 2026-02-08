@@ -31,7 +31,7 @@ function saveRoom() {
         // console.log(postElement);
 
         const caption = postElement.querySelector('.caption').innerText;
-        const name = postElement.querySelector('.name').innerText;
+        const user = postElement.querySelector('.name').innerText;
         const date = postElement.querySelector('.date').innerText;
         const id = postElement.id;
         const top = postElement.style.top;
@@ -39,7 +39,7 @@ function saveRoom() {
 
         post = {
             caption,
-            name, 
+            user, 
             date,
             id,
             top,

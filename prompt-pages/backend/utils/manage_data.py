@@ -35,11 +35,16 @@ def save_room(room_id, new_data):
      with open(filepath, "r") as file:
         file_read = file.read()
         data_dictionary = json.loads(file_read)
-        print(data_dictionary.length)
+        print(len(data_dictionary))
         room = data_dictionary[room_id]
         room["containers"] = new_data
         print(data_dictionary)
-        print(data_dictionary.length)
+        #print(len(data_dictionary))
+        old_length = len(data_dictionary)
+        new_length = len(data_dictionary)
+        if len(data_dictionary) > 0:
+            with filepath.open("w", encoding="utf-8") as file:
+                json.dump(data_dictionary, file, indent=4)
 
         return 
 
