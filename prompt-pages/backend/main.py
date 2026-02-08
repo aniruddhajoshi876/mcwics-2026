@@ -15,7 +15,8 @@ app.secret_key = "secret-key"
 #initialize socket.io with flask app
 socketio.init_app(app, cors_allowed_origins="*")
 
-#app.register_blueprint(rooms_bp)
+
+
 
 #main route
 @app.route("/")
@@ -48,12 +49,19 @@ def enter_room():
     print(room_data)
     return render_template("enter_room.html", room_id=room_id, data=room_data)
 
+#app.register_blueprint(rooms_bp)
+# receiving data in a list of dictionnaries
+#[{'caption': 'edit me', 'name': 'user', 'date': 'Sun Feb 08 2026', 
+# 'id': 'post_1770564941285', 'top': '', 'left': ''}, {'caption': 'edit me', 
+# 'name': 'user', 'date': 'Sun Feb 08 2026', 'id': 'post_1770564941444', 
+# 'top': '156px', 'left': '1062px'}]
+
 @app.route("/process_data", methods=["POST"])
 def process_data():
     print("test")
     data = request.get_json()
     print(data)
-    return '', 204
+    room_id = data.get('roomId')
 
 
 
