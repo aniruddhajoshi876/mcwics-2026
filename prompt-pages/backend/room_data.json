@@ -7,7 +7,7 @@
                 "image": "",
                 "caption": "Haha we got cool food",
                 "x": 50,
-                "y": 600,
+                "y": 400,
                 "width": 0,
                 "height": 0,
                 "z": 0,
@@ -18,8 +18,8 @@
                 "container_id": 3,
                 "image": "",
                 "caption": "It's so cold outside!",
-                "x": 400,
-                "y": 200,
+                "x": 1000,
+                "y": 160,
                 "width": 0,
                 "height": 0,
                 "z": 0,
@@ -223,6 +223,10 @@
     },
     "r36t14wt": {
         "name": "another room",
+        "containers": []
+    },
+    "y0glgoe8": {
+        "name": "ww?",
         "containers": []
     }
 }
