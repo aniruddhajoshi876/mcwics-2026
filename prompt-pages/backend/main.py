@@ -1,11 +1,13 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, flash, redirect
 from routes.rooms import bp as rooms_bp
 from realtime.sockets import socketio
-from utils.read_data import find_room
+from utils.manage_data import find_room, manage_containers
 
 
 #setup flask app, specify template and static folders
 app = Flask(__name__, template_folder="../apps/web/src/pages/templates", static_folder="../apps/web/src/static")
+#secret key for flash messages
+app.secret_key = "secret-key"
 
 
 #app.register_blueprint(rooms_bp)
@@ -28,10 +30,13 @@ def enter_room():
     #get room id from form request
     room_id = request.form.get("room-id").strip()
     room_data =find_room(room_id)
-    print(room_data)
+    if not room_data:
+        flash("Room not found.", "error")
+        return redirect(url_for("home"))
+    manage_containers(room_data["containers"])
     return render_template("personalised.html", room_id=room_id)
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=True)

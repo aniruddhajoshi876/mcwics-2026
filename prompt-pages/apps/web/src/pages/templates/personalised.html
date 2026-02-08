@@ -8,8 +8,12 @@
     <!-- <script src="../../scripts/personalscript.js"></script> !-->
 </head>
 <body ondragover="drag_over(event)" ondrop="drop(event)">
-    <button> i am a button </button>
+    <button class="action-button"> 
+        <a class="action-button-link" href="{{ url_for('home') }}">Back</a>
+    </button>
+    <button class="action-button"> Save </button>
     <div id="box1" class="box" draggable="true" ondragstart="drag_start(event)">
+        <div class="image">image here</div>
         <div class="caption" element contenteditable="true">edit me</div>
     </div>
     <div id="box2" class="box" draggable="true" ondragstart="drag_start(event)">draggable</div>

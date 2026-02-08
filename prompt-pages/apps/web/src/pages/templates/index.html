@@ -30,6 +30,15 @@
             <form action="/enter_room" method="POST" class="room-form">
                 <input type="text" placeholder="Room ID" class="room-input" name="room-id">
                 <button class="enter-room-button" type="submit">Enter</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="flash-message">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
             </form>
 
         </div>
