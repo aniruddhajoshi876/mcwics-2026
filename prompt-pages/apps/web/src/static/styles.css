@@ -1,4 +1,4 @@
-:root {
+/*:root {
     --bg: #ffe7f1;
     --bg-2: #fdf4ff;
     --ink: #3a234a;
@@ -8,7 +8,7 @@
     --accent-2: #ffd36e;
     --accent-3: #88d7ff;
     --stroke: #f1b6d2;
-}
+}. */
 
 * {
     box-sizing: border-box;
@@ -17,9 +17,9 @@
 body {
     min-height: 100vh;
     margin: 0;
-    background: #ff4fa3;
+    background: #ead9e2;
     color: var(--ink);
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     padding: 44px 20px 64px;
 }
 
@@ -32,7 +32,7 @@ body {
 
 .title-stack {
     text-align: center;
-    background: #ffe8f2;
+    background: #f0e9ec;
     border: 2px solid var(--stroke);
     padding: 18px 28px;
     border-radius: 18px;
@@ -42,17 +42,16 @@ body {
 }
 
 .main-title {
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     font-size: clamp(32px, 5vw, 48px);
     margin: 0 0 6px;
-    color: #d85aa0;
+    color: #32202a;
     text-shadow: 2px 2px 0 #fff0f8;
 }
 
 .main-subtitle {
     margin: 0;
     font-size: 18px;
-    color: var(--muted);
 }
 
 .main-container {
@@ -64,6 +63,7 @@ body {
 }
 
 .choice-room-container {
+    background:#d1a8e433;
     border: 2px solid var(--stroke);
     border-radius: 20px;
     padding: 26px 24px 22px;
@@ -81,13 +81,12 @@ body {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 119, 183, 0.2), transparent 70%);
 }
 
 .add-room-header {
     font-size: 22px;
     margin: 0 0 16px;
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     color: #b14c8a;
 }
 
@@ -116,7 +115,6 @@ body {
 }
 
 .add-room-button {
-    background: linear-gradient(135deg, var(--accent), #ff9ccf);
     color: #ffffff;
     border: none;
     border-radius: 50%;
@@ -154,17 +152,7 @@ body {
 }
 
 .flash-message {
-    color: #c5437d;
+    color: #311622;
     margin-bottom: 10px;
     font-size: 16px;
-}
-
-@media (max-width: 900px) {
-    .main-container {
-        grid-template-columns: 1fr;
-    }
-
-    .main-container > div:nth-child(2) {
-        display: none;
-    }
 }

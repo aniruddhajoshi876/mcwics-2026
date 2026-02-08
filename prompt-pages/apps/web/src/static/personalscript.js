@@ -16,15 +16,12 @@ function drop(event) {
     const x = event.clientX + parseInt(offsetX, 10);
     const y = event.clientY + parseInt(offsetY, 10);
 
-    // optimistic UI update
     el.style.left = x + "px";
     el.style.top = y + "px";
 
-    // update frontend state
     containers[id].x = x;
     containers[id].y = y;
 
-    // notify backend (realtime sync)
     socket.emit("move_container", {
         roomId,
         containerId: id,
