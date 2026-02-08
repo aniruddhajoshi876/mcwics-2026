@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 from routes.rooms import bp as rooms_bp
 from realtime.sockets import socketio
+import realtime.events  # noqa: F401 - register socket handlers
 from utils.manage_data import find_room, manage_containers, create_new_room
 from utils.room_id import generate_room_id
 import os
@@ -50,5 +51,4 @@ def enter_room():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
-    #socketio.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), allow_unsafe_werkzeug=True)
+    socketio.run(app, debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), allow_unsafe_werkzeug=True)

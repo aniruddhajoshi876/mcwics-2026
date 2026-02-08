@@ -60,16 +60,19 @@ def on_container_delete(data):
 
 @socketio.on('save_state')
 def on_save_state(data):
+    print("SAVE_STATE RECEIVED:", data)
+
     room_id = data.get('room_id') or data.get('roomId')
     state = data.get('state')
 
     if room_id is None or state is None:
+        print("SAVE_STATE: missing room_id or state")
         return
-    try:
-        save_room(room_id, state)
-        
-    except Exception as e:
-        print('Error while saving...',e)
+
+    save_room(room_id, state)
+    print("SAVE_STATE: saved for room", room_id)
+
+
 
 @socketio.on('move_container')
 def on_move_container(data):
@@ -98,22 +101,20 @@ def on_move_container(data):
 @socketio.on('join_room')
 def on_join_room(data):
     room_id = data.get('roomId')
-    if not room_id:
-        return
+    print("JOIN ROOM:", room_id)
 
-    # Join Socket.IO room (for future realtime updates)
     join_room(room_id)
 
-    # Load all saved data
     all_data = load_data()
+    print("ALL DATA:", all_data)
 
-    # Extract this room's saved state
     room_state = all_data.get(room_id)
+    print("ROOM STATE LOADED:", room_state)
 
-    # Send existing state ONLY to the joining client
-    if room_state is not None:
+    if room_state:
         emit('load_state', room_state)
 
+'''
 @socketio.on('generate_prompt')
 def on_generate_prompt(data):
     room_id = data.get('roomId')
@@ -134,3 +135,4 @@ def on_generate_prompt(data):
           include_self=False
 
           })
+          '''
