@@ -1,16 +1,20 @@
-from flask import Flask, render_template, url_for, request, flash, redirect
+from flask import Flask, render_template, url_for, request, flash, redirect, jsonify
 from routes.rooms import bp as rooms_bp
 from realtime.sockets import socketio
 import realtime.events  # noqa: F401 - register socket handlers
 from utils.manage_data import find_room, manage_containers, create_new_room
 from utils.room_id import generate_room_id
 import os
+import json
+from pathlib import Path
 
 
 #setup flask app, specify template and static folders
 app = Flask(__name__, template_folder="../apps/web/src/pages/templates", static_folder="../apps/web/src/static")
 #secret key for flash messages
 app.secret_key = "secret-key"
+
+ROOM_DATA_PATH = Path(__file__).resolve().parent / "room_data.json"
 
 #initialize socket.io with flask app
 socketio.init_app(app, cors_allowed_origins="*")
@@ -58,10 +62,26 @@ def enter_room():
 
 @app.route("/process_data", methods=["POST"])
 def process_data():
-    print("test")
-    data = request.get_json()
-    print(data)
-    room_id = data.get('roomId')
+    payload = request.get_json(silent=True) or {}
+    room_id = payload.get("roomId")
+    containers = payload.get("containers")
+
+    if ROOM_DATA_PATH.exists():
+        with ROOM_DATA_PATH.open("r", encoding="utf-8") as file:
+            data = json.load(file)
+    else:
+        data = {}
+
+
+    room_entry = data.get(room_id, {})
+    room_entry["name"] = payload.get("name") or room_entry.get("name") or room_id
+    room_entry["containers"] = containers
+    data[room_id] = room_entry
+
+    with ROOM_DATA_PATH.open("w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
+
+    return jsonify({"ok": True})
 
 
 
