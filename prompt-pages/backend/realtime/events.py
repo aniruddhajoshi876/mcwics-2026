@@ -1,5 +1,6 @@
 from flask_socketio import emit
 from realtime.sockets import socketio
+from save import save_room, load_data
 
 #client to server communication
 #server receives command and emits back to client
@@ -53,3 +54,15 @@ def on_container_delete(data):
          },
          room=room_id
     )
+
+@socketio.on('save_state')
+def save_state(data):
+    room_id = data.get('room_id') or data.get('roomId')
+    state = data.get('state')
+
+    if room_id is None or state is None:
+        return
+    try:
+        save_room(room_id, state)
+    except Exception as e:
+        print('Error while saving...')
