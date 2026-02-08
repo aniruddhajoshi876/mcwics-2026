@@ -3,13 +3,13 @@ from routes.rooms import bp as rooms_bp
 from realtime.sockets import socketio
 from utils.manage_data import find_room, manage_containers, create_new_room
 from utils.room_id import generate_room_id
+import os
 
 
 #setup flask app, specify template and static folders
 app = Flask(__name__, template_folder="../apps/web/src/pages/templates", static_folder="../apps/web/src/static")
 #secret key for flash messages
 app.secret_key = "secret-key"
-
 
 #app.register_blueprint(rooms_bp)
 
@@ -46,4 +46,4 @@ def enter_room():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
