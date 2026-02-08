@@ -1,14 +1,8 @@
-/***********************
- * DRAG & DROP
- ***********************/
 function drag_start(event) {
-    const style = window.getComputedStyle(event.target, null);
-    const offsetX = parseInt(style.getPropertyValue("left")) - event.clientX;
-    const offsetY = parseInt(style.getPropertyValue("top")) - event.clientY;
-    event.dataTransfer.setData(
-        "text/plain",
-        offsetX + "," + offsetY + "," + event.target.id
-    );
+    var style = window.getComputedStyle(event.target, null); // gets all styles of element being dragged
+    var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY) + ',' + event.target.id;
+    event.dataTransfer.setData("text/plain", str); // saves as a string
+    // index 0 -> horz. offset; 1 -> vertical offset, 2 -> event ID
 }
 
 function drop(event) {
@@ -17,19 +11,20 @@ function drop(event) {
         .split(",");
 
     const el = document.getElementById(id);
-    if (!el || !containers[id]) return;
+    if (!el) return;
 
     const x = event.clientX + parseInt(offsetX, 10);
     const y = event.clientY + parseInt(offsetY, 10);
 
-    // optimistic UI
+    // optimistic UI update
     el.style.left = x + "px";
     el.style.top = y + "px";
 
+    // update frontend state
     containers[id].x = x;
     containers[id].y = y;
 
-    // realtime sync
+    // notify backend (realtime sync)
     socket.emit("move_container", {
         roomId,
         containerId: id,
@@ -41,26 +36,45 @@ function drop(event) {
     return false;
 }
 
+
 function drag_over(event) {
-    event.preventDefault();
+    event.preventDefault(); // allows element to recieve drops
     return false;
 }
 
-// bind drop handlers (IMPORTANT)
-document.body.ondrop = drop;
-document.body.ondragover = drag_over;
+$("input[type='file']").change(function(e) { // jquery  
+    const files = e.target.files; // supports multiple file uploads, loops thru later
 
-/***********************
- * DATE
- ***********************/
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i]; // current file from list
+
+        const img = document.createElement("img");
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            img.src = event.target.result;
+            
+            $(e.target).hide(); // hide image upload prompt
+
+            $(e.target).parent().append(img); // appends to img <div>
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+
 const date = new Date();
 document.getElementById("date").textContent = date.toDateString();
+
+
+
 
 /***********************
  * SOCKET SETUP
  ***********************/
 const socket = io();
 
+// join room AFTER connect
 socket.on("connect", () => {
     socket.emit("join_room", { roomId });
 });
@@ -68,13 +82,14 @@ socket.on("connect", () => {
 /***********************
  * FRONTEND STATE
  ***********************/
-const containers = {}; 
+const containers = {};
 // containers[id] = { x, y, z, content }
 
 /***********************
  * LOAD EXISTING ROOM STATE
  ***********************/
 socket.on("load_state", (roomState) => {
+    // clear UI + state
     Object.keys(containers).forEach(id => {
         document.getElementById(id)?.remove();
         delete containers[id];
@@ -97,8 +112,7 @@ socket.on("load_state", (roomState) => {
 
         const caption = document.createElement("input");
         caption.value = c.caption || "";
-
-        caption.oninput = () => {
+        caption.onchange = () => {
             containers[id].content.caption = caption.value;
             socket.emit("container_update", {
                 roomId,
@@ -161,8 +175,7 @@ $("input[type='file']").change(function (e) {
 
             const caption = document.createElement("input");
             caption.placeholder = "caption...";
-
-            caption.oninput = () => {
+            caption.onchange = () => {
                 containers[id].content.caption = caption.value;
                 socket.emit("container_update", {
                     roomId,
@@ -232,15 +245,6 @@ socket.on("container_added", data => {
     const caption = document.createElement("input");
     caption.value = content.caption || "";
 
-    caption.oninput = () => {
-        containers[id].content.caption = caption.value;
-        socket.emit("container_update", {
-            roomId,
-            containerId: id,
-            content: containers[id].content
-        });
-    };
-
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.onclick = () => {
@@ -283,7 +287,7 @@ socket.on("container_deleted", data => {
 socket.on("container_moved", data => {
     const id = data.containerId;
     const el = document.getElementById(id);
-    if (!el || !containers[id]) return;
+    if (!el) return;
 
     el.style.left = data.x + "px";
     el.style.top = data.y + "px";
