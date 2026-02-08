@@ -93,3 +93,22 @@ def on_move_container(data):
         room=room_id,
         include_self=False
     )
+
+@socketio.on('join_room')
+def on_join_room(data):
+    room_id = data.get('roomId')
+    if not room_id:
+        return
+
+    # Join Socket.IO room (for future realtime updates)
+    join_room(room_id)
+
+    # Load all saved data
+    all_data = load_data()
+
+    # Extract this room's saved state
+    room_state = all_data.get(room_id)
+
+    # Send existing state ONLY to the joining client
+    if room_state is not None:
+        emit('load_state', room_state)

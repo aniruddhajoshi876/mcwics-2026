@@ -6,13 +6,36 @@ function drag_start(event) {
 }
 
 function drop(event) {
-    var offset = event.dataTransfer.getData("text/plain").split(',');
-    var dm = document.getElementById(offset[2]);
-    dm.style.left = (event.clientX + parseInt(offset[0], 10)) + 'px'; // finds new location
-    dm.style.top = (event.clientY + parseInt(offset[1], 10)) + 'px';
+    const [offsetX, offsetY, id] = event.dataTransfer
+        .getData("text/plain")
+        .split(",");
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const x = event.clientX + parseInt(offsetX, 10);
+    const y = event.clientY + parseInt(offsetY, 10);
+
+    // optimistic UI update
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+
+    // update frontend state
+    containers[id].x = x;
+    containers[id].y = y;
+
+    // notify backend (realtime sync)
+    socket.emit("move_container", {
+        roomId,
+        containerId: id,
+        x,
+        y
+    });
+
     event.preventDefault();
     return false;
 }
+
 
 function drag_over(event) {
     event.preventDefault(); // allows element to recieve drops
@@ -46,64 +69,83 @@ document.getElementById("date").textContent = date.toDateString();
 
 
 
-
-
 /***********************
  * SOCKET SETUP
  ***********************/
 const socket = io();
 
-// join room on load
-socket.emit("join", { roomId });
+// join room AFTER connect
+socket.on("connect", () => {
+    socket.emit("join_room", { roomId });
+});
 
 /***********************
  * FRONTEND STATE
  ***********************/
-const containers = {}; 
-// containers[id] = { x, y, z, content: { image, caption } }
+const containers = {};
+// containers[id] = { x, y, z, content }
 
 /***********************
- * DRAG & DROP
+ * LOAD EXISTING ROOM STATE
  ***********************/
-function drag_start(event) {
-    const style = window.getComputedStyle(event.target, null);
-    const offsetX = parseInt(style.getPropertyValue("left")) - event.clientX;
-    const offsetY = parseInt(style.getPropertyValue("top")) - event.clientY;
-    const str = offsetX + ',' + offsetY + ',' + event.target.id;
-    event.dataTransfer.setData("text/plain", str);
-}
-
-function drop(event) {
-    const offset = event.dataTransfer.getData("text/plain").split(',');
-    const id = offset[2];
-    const el = document.getElementById(id);
-
-    const x = event.clientX + parseInt(offset[0], 10);
-    const y = event.clientY + parseInt(offset[1], 10);
-
-    // local update (optimistic)
-    el.style.left = x + 'px';
-    el.style.top = y + 'px';
-
-    containers[id].x = x;
-    containers[id].y = y;
-
-    // realtime sync
-    socket.emit("move_container", {
-        roomId,
-        container_id: id,
-        x,
-        y
+socket.on("load_state", (roomState) => {
+    // clear UI + state
+    Object.keys(containers).forEach(id => {
+        document.getElementById(id)?.remove();
+        delete containers[id];
     });
 
-    event.preventDefault();
-    return false;
-}
+    roomState.containers.forEach(c => {
+        const id = String(c.container_id);
 
-function drag_over(event) {
-    event.preventDefault();
-    return false;
-}
+        const wrapper = document.createElement("div");
+        wrapper.id = id;
+        wrapper.className = "container";
+        wrapper.draggable = true;
+        wrapper.ondragstart = drag_start;
+        wrapper.style.position = "absolute";
+        wrapper.style.left = c.x + "px";
+        wrapper.style.top = c.y + "px";
+
+        const img = document.createElement("img");
+        img.src = c.image;
+
+        const caption = document.createElement("input");
+        caption.value = c.caption || "";
+        caption.onchange = () => {
+            containers[id].content.caption = caption.value;
+            socket.emit("container_update", {
+                roomId,
+                containerId: id,
+                content: containers[id].content
+            });
+        };
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.onclick = () => {
+            socket.emit("container_delete", {
+                roomId,
+                containerId: id
+            });
+        };
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(caption);
+        wrapper.appendChild(deleteBtn);
+        document.body.appendChild(wrapper);
+
+        containers[id] = {
+            x: c.x,
+            y: c.y,
+            z: c.z,
+            content: {
+                image: c.image,
+                caption: c.caption
+            }
+        };
+    });
+});
 
 /***********************
  * IMAGE UPLOAD → ADD CONTAINER
@@ -119,7 +161,6 @@ $("input[type='file']").change(function (e) {
             const id = crypto.randomUUID();
             const imgSrc = event.target.result;
 
-            // create container
             const wrapper = document.createElement("div");
             wrapper.id = id;
             wrapper.className = "container";
@@ -136,21 +177,19 @@ $("input[type='file']").change(function (e) {
             caption.placeholder = "caption...";
             caption.onchange = () => {
                 containers[id].content.caption = caption.value;
-
                 socket.emit("container_update", {
                     roomId,
-                    container_id: id,
+                    containerId: id,
                     content: containers[id].content
                 });
             };
 
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
-            deleteBtn.style.marginTop = "5px";
             deleteBtn.onclick = () => {
                 socket.emit("container_delete", {
                     roomId,
-                    container_id: id
+                    containerId: id
                 });
             };
 
@@ -159,7 +198,6 @@ $("input[type='file']").change(function (e) {
             wrapper.appendChild(deleteBtn);
             document.body.appendChild(wrapper);
 
-            // update frontend state
             containers[id] = {
                 x: 100,
                 y: 100,
@@ -170,10 +208,9 @@ $("input[type='file']").change(function (e) {
                 }
             };
 
-            // realtime add
             socket.emit("container_add", {
                 roomId,
-                container_id: id,
+                containerId: id,
                 content: containers[id].content
             });
 
@@ -188,9 +225,9 @@ $("input[type='file']").change(function (e) {
  * REALTIME LISTENERS
  ***********************/
 socket.on("container_added", data => {
-    if (containers[data.container_id]) return;
+    if (containers[data.containerId]) return;
 
-    const id = data.container_id;
+    const id = data.containerId;
     const content = data.content;
 
     const wrapper = document.createElement("div");
@@ -210,11 +247,10 @@ socket.on("container_added", data => {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
-    deleteBtn.style.marginTop = "5px";
     deleteBtn.onclick = () => {
         socket.emit("container_delete", {
             roomId,
-            container_id: id
+            containerId: id
         });
     };
 
@@ -232,7 +268,7 @@ socket.on("container_added", data => {
 });
 
 socket.on("container_updated", data => {
-    const id = data.container_id;
+    const id = data.containerId;
     if (!containers[id]) return;
 
     containers[id].content = data.content;
@@ -243,20 +279,21 @@ socket.on("container_updated", data => {
 });
 
 socket.on("container_deleted", data => {
-    const id = data.container_id;
+    const id = data.containerId;
     delete containers[id];
     document.getElementById(id)?.remove();
 });
 
 socket.on("container_moved", data => {
-    const el = document.getElementById(data.container_id);
+    const id = data.containerId;
+    const el = document.getElementById(id);
     if (!el) return;
 
     el.style.left = data.x + "px";
     el.style.top = data.y + "px";
 
-    containers[data.container_id].x = data.x;
-    containers[data.container_id].y = data.y;
+    containers[id].x = data.x;
+    containers[id].y = data.y;
 });
 
 /***********************
@@ -266,8 +303,17 @@ function saveRoom() {
     socket.emit("save_state", {
         roomId,
         state: {
-            containers
+            name: document.title,
+            containers: Object.entries(containers).map(([id, c]) => ({
+                container_id: id,
+                image: c.content.image,
+                caption: c.content.caption,
+                x: c.x,
+                y: c.y,
+                width: 0,
+                height: 0,
+                z: c.z
+            }))
         }
     });
 }
-
