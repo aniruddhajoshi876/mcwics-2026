@@ -58,6 +58,7 @@ def enter_room():
 
 @app.route("/process_data", methods=["POST"])
 def process_data():
+    print("test")
     data = request.get_json()
     print(data)
     room_id = data.get('roomId')
@@ -66,4 +67,4 @@ def process_data():
 
 if __name__ == "__main__":
     #socketio.run(app, debug=True, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=True)
