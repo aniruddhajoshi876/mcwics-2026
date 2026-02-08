@@ -16,7 +16,7 @@ html, body {
     left: 50px;
     top: 50px;
     width: 250px;
-    height: 300px;
+    height: 325px;
     cursor: move;
 
     display: flex;
@@ -34,6 +34,20 @@ html, body {
     justify-content: center;
     align-items: center;
     margin: 10px;
+    background: white;
+}
+
+.image img { /* specifically for images inside class image */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.image input[type="file"] { /* aligns input to fit */
+    display: flex;
+    align-content: center; 
+    width: 100%;
+    height: 100%;
 }
 
 .caption {

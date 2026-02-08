@@ -19,3 +19,24 @@ function drag_over(event) {
     event.preventDefault(); // allows element to recieve drops
     return false;
 }
+
+$("input[type='file']").change(function(e) { // jquery  
+    const files = e.target.files; // supports multiple file uploads, loops thru later
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i]; // current file from list
+
+        const img = document.createElement("img");
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            img.src = event.target.result;
+            
+            $(e.target).hide(); // hide image upload prompt
+
+            $(e.target).parent().append(img); // appends to img <div>
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
