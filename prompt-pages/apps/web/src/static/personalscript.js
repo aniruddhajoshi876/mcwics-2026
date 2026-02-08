@@ -38,20 +38,30 @@ function drag_over(event) {
     event.preventDefault(); // allows element to recieve drops
     return false;
 }
+// original (added dates commit)
+$("input[type='file']").change(function(e) { // jquery  
+    const files = e.target.files; // supports multiple file uploads, loops thru later
 
-$(".post-spawn-js").on("change", "input[type='file']", function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i]; // current file from list
 
-    const reader = new FileReader();
-    const imageContainer = $(this).closest(".image");
+        const img = document.createElement("img");
+        const reader = new FileReader();
 
-    reader.onload = function (event) {
-        imageContainer.html(`<img src="${event.target.result}">`);
-    };
+        reader.onload = function(event) {
+            img.src = event.target.result;
+            
+            $(e.target).hide(); // hide image upload prompt
 
-    reader.readAsDataURL(file);
+            $(e.target).parent().append(img); // appends to img <div>
+        };
+
+        reader.readAsDataURL(file);
+    }
 });
+
+const date = new Date();
+document.getElementById("date").textContent = date.toDateString();
 
 
 
