@@ -6,34 +6,37 @@
                 "container_id": 1,
                 "image": "",
                 "caption": "Check this out!",
-                "x": 100,
-                "y": 0,
+                "x": 500,
+                "y": 600,
                 "width": 0,
                 "height": 0,
                 "z": 0,
-                "date": "Sat Feb 07 2026"
+                "date": "Sat Feb 07 2026",
+                "user": "Ilgaz"
             },
             {
                 "container_id": 2,
                 "image": "",
                 "caption": "Haha cool food",
-                "x": 0,
-                "y": 0,
+                "x": 100,
+                "y": 800,
                 "width": 0,
                 "height": 0,
                 "z": 0,
-                "date": "Sat Feb 07 2026"
+                "date": "Sat Feb 07 2026",
+                "user": "AJ"
             },
             {
                 "container_id": 3,
                 "image": "",
                 "caption": "This is a caption lol",
-                "x": 0,
-                "y": 0,
+                "x": 400,
+                "y": 150,
                 "width": 0,
                 "height": 0,
                 "z": 0,
-                "date": "Sun Feb 08 2026"
+                "date": "Sun Feb 08 2026",
+                "user": "Audrey"
             }
         ]
     },
@@ -49,7 +52,8 @@
                 "width": 0,
                 "height": 0,
                 "z": 0,
-                "date": "Sun Feb 08 2026"
+                "date": "Sun Feb 08 2026",
+                "user": "Bob"
             }
         ]
     },

@@ -19,7 +19,7 @@ function loadData(posts) {
 
     console.log(post);
     const postHTML = ` <div id="box1" class="box" draggable="true">
-        <span class="name" contenteditable="true">user</span>
+        <span class="name" contenteditable="true">${post.user}</span>
         <span class="date" id="date">${post.date}</span>
 
         <div class="image"> 
@@ -35,6 +35,10 @@ function loadData(posts) {
     const newPost = postSpawnEl.lastElementChild;
 
     newPost.id = 'post_' + Date.now();
+
+    newPost.style.left = post.x + 'px';
+    newPost.style.top = post.y + 'px';
+
     newPost.ondragstart = drag_start;
 
 });
