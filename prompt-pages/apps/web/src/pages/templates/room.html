@@ -19,6 +19,7 @@
     <div class="post-spawn post-spawn-js" ondrop="drop(event)" ondragover="drag_over(event)"></div>
 
     <script>const roomId = "{{ room_id }}";</script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="{{ url_for('static', filename='room.js') }}"></script>   
     <script src="{{ url_for('static', filename='personalscript.js') }}"></script>

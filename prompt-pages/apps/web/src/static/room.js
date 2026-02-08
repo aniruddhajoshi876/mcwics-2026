@@ -1,6 +1,6 @@
 const addButtonEl = document.querySelector(".add-post-js");
-
 const postSpawnEl = document.querySelector('.post-spawn-js');
+let containers = {}; // personalscript, containers aren't defined yet
 
 console.log("Running!")
 console.log(Date.now())
