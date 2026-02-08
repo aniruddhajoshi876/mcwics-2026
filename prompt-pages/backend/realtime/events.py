@@ -1,4 +1,4 @@
-from flask_socketio import emit
+from flask_socketio import emit, join_room
 from realtime.sockets import socketio
 from save import save_room, load_data
 
