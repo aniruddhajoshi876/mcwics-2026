@@ -1,3 +1,4 @@
+
 function drag_start(event) {
     var style = window.getComputedStyle(event.target, null); // gets all styles of element being dragged
     var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY) + ',' + event.target.id;
@@ -16,15 +17,12 @@ function drop(event) {
     const x = event.clientX + parseInt(offsetX, 10);
     const y = event.clientY + parseInt(offsetY, 10);
 
-    // optimistic UI update
     el.style.left = x + "px";
     el.style.top = y + "px";
 
-    // update frontend state
     containers[id].x = x;
     containers[id].y = y;
 
-    // notify backend (realtime sync)
     socket.emit("move_container", {
         roomId,
         containerId: id,
@@ -36,12 +34,11 @@ function drop(event) {
     return false;
 }
 
-
 function drag_over(event) {
     event.preventDefault(); // allows element to recieve drops
     return false;
 }
-
+// original (added dates commit)
 $("input[type='file']").change(function(e) { // jquery  
     const files = e.target.files; // supports multiple file uploads, loops thru later
 

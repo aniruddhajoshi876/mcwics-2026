@@ -43,8 +43,8 @@ html, body {
 }
 
 .box:hover {
-    transform: scale(1.05); /* gently grows */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* adds depth */
+    transform: rotate(1deg) scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 
