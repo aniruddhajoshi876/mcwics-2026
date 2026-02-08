@@ -20,23 +20,22 @@ def manage_containers(containers: list):
     for container in containers:
         print(f"Caption: {container['caption']}")
 
-def create_room(room_id):
+def create_new_room(room_id, room_name):
     with open(filepath, "r") as file:
         file_read = file.read()
         data_dictionary = json.loads(file_read)
         old_length = len(data_dictionary)
-        print(len(data_dictionary))
-        data_dictionary[room_id] = {"containers": []}
+        data_dictionary[room_id] = {"name": room_name,"containers": []}
         new_length = len(data_dictionary)
         if new_length > old_length:
-            with open(filepath, "w") as file:
-                json.dump(data_dictionary, file)
+            with filepath.open("w", encoding="utf-8") as file:
+                json.dump(data_dictionary, file, indent=4)
 
     
 
 if __name__ == "__main__":
     #print(find_room("testid"))
-    create_room("152516")
+    create_new_room("987654")
 
         
 
