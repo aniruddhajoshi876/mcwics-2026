@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, flash, redirect, jso
 from routes.rooms import bp as rooms_bp
 from realtime.sockets import socketio
 import realtime.events  # noqa: F401 - register socket handlers
-from utils.manage_data import find_room, manage_containers, create_new_room
+from utils.manage_data import find_room, manage_containers, create_new_room, save_room
 from utils.room_id import generate_room_id
 import os
 import json
@@ -61,28 +61,29 @@ ROOM_DATA_PATH = Path(__file__).resolve().parent / "room_data.json"
 
 @app.route("/process_data", methods=["POST"])
 def process_data():
-    payload = request.get_json(silent=True) or {}
-    print(payload)
+    payload = request.get_json()
 
     room_id = payload[0]
+    new_posts = payload[1:]
+    save_room(room_id, new_posts)
     
 
-    containers = payload.get("containers")
+    # containers = payload.get("containers")
 
-    if ROOM_DATA_PATH.exists():
-        with ROOM_DATA_PATH.open("r", encoding="utf-8") as file:
-            data = json.load(file)
-    else:
-        data = {}
+    # if ROOM_DATA_PATH.exists():
+    #     with ROOM_DATA_PATH.open("r", encoding="utf-8") as file:
+    #         data = json.load(file)
+    # else:
+    #     data = {}
 
 
-    room_entry = data.get(room_id, {})
-    room_entry["name"] = payload.get("name") or room_entry.get("name") or room_id
-    room_entry["containers"] = containers
-    data[room_id] = room_entry
+    # room_entry = data.get(room_id, {})
+    # room_entry["name"] = payload.get("name") or room_entry.get("name") or room_id
+    # room_entry["containers"] = containers
+    # data[room_id] = room_entry
 
-    with ROOM_DATA_PATH.open("w", encoding="utf-8") as file:
-        json.dump(data, file, indent=4)
+    # with ROOM_DATA_PATH.open("w", encoding="utf-8") as file:
+    #     json.dump(data, file, indent=4)
 
     return "", 200
 

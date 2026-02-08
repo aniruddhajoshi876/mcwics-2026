@@ -31,11 +31,24 @@ def create_new_room(room_id, room_name):
             with filepath.open("w", encoding="utf-8") as file:
                 json.dump(data_dictionary, file, indent=4)
 
-    
+def save_room(room_id, new_data):
+     with open(filepath, "r") as file:
+        file_read = file.read()
+        data_dictionary = json.loads(file_read)
+        print(data_dictionary.length)
+        room = data_dictionary[room_id]
+        room["containers"] = new_data
+        print(data_dictionary)
+        print(data_dictionary.length)
+
+        return 
+
+
+
 
 if __name__ == "__main__":
     #print(find_room("testid"))
-    create_new_room("987654")
+    pass
 
         
 
