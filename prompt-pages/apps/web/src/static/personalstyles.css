@@ -54,3 +54,16 @@ html, body {
 button {
     float: right;
 }
+
+.action-button {
+    background: lightcoral;
+    border: none;
+    padding: 10px 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.action-button-link {
+    text-decoration: none;
+    color: black;
+}

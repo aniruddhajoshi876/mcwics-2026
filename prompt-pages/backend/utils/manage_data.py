@@ -10,9 +10,11 @@ def find_room(room_id):
     with open(filepath, "r") as file:
         file_read = file.read()
         data = json.loads(file_read)
-
-        room_data = data[room_id]
-        return room_data
+        try:   
+            room_data = data[room_id]
+            return room_data
+        except KeyError:
+            return None
     
 def manage_containers(containers: list):
     for container in containers:
