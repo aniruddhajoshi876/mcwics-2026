@@ -67,6 +67,7 @@ def on_save_state(data):
         return
     try:
         save_room(room_id, state)
+        
     except Exception as e:
         print('Error while saving...',e)
 
@@ -112,3 +113,24 @@ def on_join_room(data):
     # Send existing state ONLY to the joining client
     if room_state is not None:
         emit('load_state', room_state)
+
+@socketio.on('generate_prompt')
+def on_generate_prompt(data):
+    room_id = data.get('roomId')
+    container_id = data.get('containerId')
+    month = data.get('month')
+
+    if not room_id or not container_id or not month:
+        return
+    text = generate_month(month)
+
+    emit('prompted_added',
+         {container_id: container_id,
+          'content': {
+              'image': '',
+              'caption': text
+          }},
+          room = room_id,
+          include_self=False
+
+          })
