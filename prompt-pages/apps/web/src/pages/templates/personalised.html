@@ -9,10 +9,12 @@
     <!-- <script src="../../scripts/personalscript.js"></script> !-->
 </head>
 <body ondragover="drag_over(event)" ondrop="drop(event)">
-    <button class="action-button"> 
-        <a class="action-button-link" href="{{ url_for('home') }}">Back</a>
-    </button>
-    <button class="action-button"> Save </button>
+    <div class="header">
+        <button class="action-button"> 
+            <a class="action-button-link" href="{{ url_for('home') }}">Back</a>
+        </button>
+        <button class="action-button"> Save </button>
+    </div>
 
     <div id="box1" class="box" draggable="true" ondragstart="drag_start(event)">
         <span class="name" contenteditable="true">user</span>
@@ -25,7 +27,7 @@
     </div>
     <div id="box2" class="box" draggable="true" ondragstart="drag_start(event)">draggable</div>
 
-    <div class="header"> 
+    <div class="month"> 
         <h2>Janurary</h2>
     </div>
     <script src="{{ url_for('static', filename='personalscript.js') }}"></script>

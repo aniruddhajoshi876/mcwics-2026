@@ -57,7 +57,7 @@ html, body {
     overflow: scroll; /* scroll for more text space */
 }
 
-.header {
+.month {
     background: lightcoral;
     padding: 20px;
     
@@ -73,6 +73,14 @@ html, body {
     background: lavender;
     font-size: 15px;
     margin-top: 3px;
+}
+
+.header {
+    display: flex;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 button {
