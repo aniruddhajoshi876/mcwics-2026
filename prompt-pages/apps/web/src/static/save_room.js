@@ -2,8 +2,13 @@ const saveEl = document.querySelector('.save-js');
 
 
 
+
+
 saveEl.addEventListener('click', () => {
     console.log("Saving room state!");
+
+    const roomId = document.querySelector('.room-id-js').innerText.split("id: ")[1];
+
     saveRoom();
 
 
@@ -19,7 +24,7 @@ function saveRoom() {
 
     // console.log(childrenPosts.length);
     // console.log(childrenPosts);
-    let allPosts = [];
+    let allPosts = [roomId];
 
     for (let i = 0; i < childrenPosts.length; i++) {
         const postElement = childrenPosts[i];
