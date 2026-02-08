@@ -26,4 +26,6 @@ addButtonEl.addEventListener('click', () => {
     newPost.id = 'post_' + Date.now();
     newPost.ondragstart = drag_start;
 
+    /*document.ondragstart = drag_start; */
+
 })

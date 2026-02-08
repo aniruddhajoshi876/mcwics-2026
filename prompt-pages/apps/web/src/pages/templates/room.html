@@ -15,7 +15,7 @@
         <h2>January</h2>
     </div>
     <button class="add-post-button add-post-js">+</button>
-    <div class="post-spawn post-spawn-js"></div>
+    <div class="post-spawn post-spawn-js" ondrop="drop(event)" ondragover="drag_over(event)"></div>
 
     <script src="{{ url_for('static', filename='room.js') }}"></script>   
     <script src="{{ url_for('static', filename='personalscript.js') }}"></script>
