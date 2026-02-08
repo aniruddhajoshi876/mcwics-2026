@@ -41,7 +41,8 @@ def enter_room():
         flash("Room not found.", "error")
         return redirect(url_for("home"))
     manage_containers(room_data["containers"])
-    return render_template("personalised.html", room_id=room_id, data=room_data)
+    print(room_data)
+    return render_template("enter_room.html", room_id=room_id, data=room_data)
 
 
 

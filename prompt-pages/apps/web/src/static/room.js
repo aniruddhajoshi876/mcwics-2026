@@ -8,9 +8,20 @@ console.log(Date.now())
 addButtonEl.addEventListener('click', () => {
     console.log("Clicked!")
 
+    makePost();
+
+})
+
+function loadData() {
+    
+}
+
+function makePost(postData) {
+     const date = new Date();
+
     const postHTML = `    <div id="box1" class="box" draggable="true">
         <span class="name" contenteditable="true">user</span>
-        <span class="date" id="date"></span>
+        <span class="date" id="date">${date.toDateString()}</span>
 
         <div class="image"> 
             <input type="file">     
@@ -25,7 +36,4 @@ addButtonEl.addEventListener('click', () => {
 
     newPost.id = 'post_' + Date.now();
     newPost.ondragstart = drag_start;
-
-    /*document.ondragstart = drag_start; */
-
-})
+}
