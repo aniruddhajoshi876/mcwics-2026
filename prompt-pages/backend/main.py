@@ -14,8 +14,6 @@ app = Flask(__name__, template_folder="../apps/web/src/pages/templates", static_
 #secret key for flash messages
 app.secret_key = "secret-key"
 
-ROOM_DATA_PATH = Path(__file__).resolve().parent / "room_data.json"
-
 #initialize socket.io with flask app
 socketio.init_app(app, cors_allowed_origins="*")
 
@@ -59,6 +57,7 @@ def enter_room():
 # 'id': 'post_1770564941285', 'top': '', 'left': ''}, {'caption': 'edit me', 
 # 'name': 'user', 'date': 'Sun Feb 08 2026', 'id': 'post_1770564941444', 
 # 'top': '156px', 'left': '1062px'}]
+ROOM_DATA_PATH = Path(__file__).resolve().parent / "room_data.json"
 
 @app.route("/process_data", methods=["POST"])
 def process_data():
