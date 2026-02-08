@@ -73,7 +73,7 @@ document.getElementById("date").textContent = date.toDateString();
  * SOCKET SETUP
  ***********************/
 const socket = io();
-const roomId = document.body.dataset.roomId;
+// const roomId = document.body.dataset.roomId;
 console.log("ROOM ID:", roomId);
 
 // join room AFTER connect
