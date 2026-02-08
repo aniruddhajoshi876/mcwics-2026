@@ -68,27 +68,10 @@ def process_data():
     save_room(room_id, new_posts)
     
 
-    # containers = payload.get("containers")
-
-    # if ROOM_DATA_PATH.exists():
-    #     with ROOM_DATA_PATH.open("r", encoding="utf-8") as file:
-    #         data = json.load(file)
-    # else:
-    #     data = {}
-
-
-    # room_entry = data.get(room_id, {})
-    # room_entry["name"] = payload.get("name") or room_entry.get("name") or room_id
-    # room_entry["containers"] = containers
-    # data[room_id] = room_entry
-
-    # with ROOM_DATA_PATH.open("w", encoding="utf-8") as file:
-    #     json.dump(data, file, indent=4)
-
     return "", 200
 
 
 
 if __name__ == "__main__":
     #socketio.run(app, debug=True, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=False)
