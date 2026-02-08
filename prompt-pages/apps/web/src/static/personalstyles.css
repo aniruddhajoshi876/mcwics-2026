@@ -40,7 +40,7 @@ html, body {
 .image img { /* specifically for images inside class image */
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .image input[type="file"] { /* aligns input to fit */
