@@ -1,17 +1,17 @@
 
-* {
+/* * {
   border: 2px solid red;
-}
+} */
 
 html, body {
     margin: 0;
     height: 100%;
-    font-family: Roboto, sans-serif;
+    font-family: "Caveat", cursive;
     position: relative;
 }
 
 .box {
-    background: bisque;
+    background: #B08AD0;
     position: absolute;
     left: 50px;
     top: 50px;
@@ -34,7 +34,7 @@ html, body {
     justify-content: center;
     align-items: center;
     margin: 10px;
-    background: white;
+    background: #F3EDF8;
 }
 
 .image img { /* specifically for images inside class image */
