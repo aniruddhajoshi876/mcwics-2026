@@ -48,8 +48,14 @@ def enter_room():
     print(room_data)
     return render_template("enter_room.html", room_id=room_id, data=room_data)
 
+@app.route("/process_data", methods=["POST"])
+def process_data():
+    data = request.get_json()
+    print(data)
+
+
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
-    #app.run(debug=True, use_reloader=False)
+    #socketio.run(app, debug=True, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
+    app.run(debug=True, use_reloader=False)
