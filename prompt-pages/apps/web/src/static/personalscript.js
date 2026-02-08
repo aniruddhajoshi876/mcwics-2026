@@ -308,7 +308,7 @@ function saveRoom() {
             name: document.title,
             containers: Object.entries(containers).map(([id, c]) => ({
                 container_id: id,
-                image: c.content.image,
+                image: c.content.image,  // ← This assumes image is in content
                 caption: c.content.caption,
                 x: c.x,
                 y: c.y,
